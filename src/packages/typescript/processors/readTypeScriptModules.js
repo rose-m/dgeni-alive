@@ -11,7 +11,7 @@ module.exports = function readTypeScriptModules(tsParser, modules, getFileInfo, 
     $runBefore: ['parsing-tags'],
 
     $validate: {
-      sourceFiles: {presence: true},
+      sourceFiles: {presence: false},
       basePath: {presence: true},
       hidePrivateMembers: {inclusion: [true, false]},
       sortClassMembers: {inclusion: [true, false]},
@@ -382,7 +382,7 @@ module.exports = function readTypeScriptModules(tsParser, modules, getFileInfo, 
     } else if (declaration.initializer) {
       // The symbol does not have a "type" but it is being initialized
       // so we can deduce the type of from the initializer (mostly).
-      if (declaration.initializer.expression) {
+      if (declaration.initializer.expression && declaration.initializer.expression.text) {
         return declaration.initializer.expression.text.trim();
       } else {
         return getType(sourceFile, declaration.initializer).trim();
