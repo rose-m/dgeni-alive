@@ -11,6 +11,7 @@ module.exports = new Package('ngdoc-ext', [require('dgeni-packages/ngdoc')])
 
 // Add in the real processors for this package
 .processor(require('./processors/embedImages'))
+.processor(require('./processors/filterTypescriptNgdocs'))
 .processor(require('./processors/generateErrorsGroupArea'))
 
 // add more templates location
