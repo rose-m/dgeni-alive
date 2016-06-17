@@ -13,9 +13,9 @@ var pkg = require('../package.json');
  * @type {Array}
  */
 var DEFAULT_PACKAGES = [
+  require('dgeni-packages/typescript'),
   require('./packages/jsdoc-ext'),
   require('./packages/ngdoc-ext'),
-  require('./packages/typescript'),
   require('./packages/links-ext')
 ];
 
@@ -136,9 +136,9 @@ function configurePackage(p) {
       });
 
       computePathsProcessor.pathTemplates.push({
-        docTypes: ['interface'],
+        docTypes: ['let'],
         getPath: function (doc) {
-          console.log(doc);
+          console.log(doc, doc.area + '/' + doc.module + '/' + doc.docType + '/' + doc.name);
           return doc.area + '/' + doc.module + '/' + doc.docType + '/' + doc.name;
         },
         outputPathTemplate: 'partials/${area}/${module}/${docType}/${name}.html'

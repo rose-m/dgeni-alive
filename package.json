@@ -30,8 +30,7 @@
     "bower": "~1.7.2",
     "bytebuffer": "~5.0.0",
     "catharsis": "~0.8.7",
-    "dgeni": "~0.4.2",
-    "dgeni-packages": "~0.11.1",
+    "dgeni-packages": "file:///Users/rosem/Software/dgeni-packages",
     "ent": "~2.2.0",
     "fs-extra": "~0.26.4",
     "http-server": "~0.8.5",
@@ -43,8 +42,7 @@
     "q": "~1.4.1",
     "stemmer": "~0.1.4",
     "stringmap": "~0.2.2",
-    "wiredep": "~3.0.0",
-    "typescript": "~1.6.2"
+    "wiredep": "~3.0.0"
   },
   "devDependencies": {
     "coveralls": "~2.11.8",
