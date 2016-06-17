@@ -23,11 +23,11 @@ describe("filter-typescript-ngdocs doc-processor plugin", function() {
 
     var doc1 = { tags: createMockTagCollection({ngdoc: 'a'}) };
 
-    var doc2 = { tags: createMockTagCollection({other: 'b'}), ignoredInJsdoc: true };
+    var doc2 = { tags: createMockTagCollection({other: 'b'}), ignoreInJsdoc: true };
 
     var doc3 = { tags: createMockTagCollection({other: 'd'}) };
 
-    var doc4 = { tags: createMockTagCollection({ngdoc: 'd'}), ignoredInJsdoc: true };
+    var doc4 = { tags: createMockTagCollection({ngdoc: 'd'}), ignoreInJsdoc: true };
 
     var docs = [ doc1, doc2, doc3, doc4 ];
 
