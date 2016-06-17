@@ -43,7 +43,8 @@
     "q": "~1.4.1",
     "stemmer": "~0.1.4",
     "stringmap": "~0.2.2",
-    "wiredep": "~3.0.0"
+    "wiredep": "~3.0.0",
+    "typescript": "~1.6.2"
   },
   "devDependencies": {
     "coveralls": "~2.11.8",
