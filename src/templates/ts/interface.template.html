@@ -1,0 +1,13 @@
+{% include "lib/macros.html" %}
+{% extends "ts/ts.template.html" %}
+
+{% block additional %}
+
+{%- if doc.typeParams or doc.heritage -%}
+    <h2>Signature</h2>
+    <p>
+        {$ doc.name | code $}{$ doc.typeParams | code $}{$ doc.heritage $}
+    </p>
+{%- endif %}
+
+{% endblock %}

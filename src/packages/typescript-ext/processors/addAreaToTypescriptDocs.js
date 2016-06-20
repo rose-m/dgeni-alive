@@ -10,7 +10,7 @@ module.exports = function addAreaToTypescriptDocs() {
     $process: function (docs) {
       docs.forEach(function (doc) {
         if (doc.ignoreInJsdoc && !doc.area) {
-          doc.area = 'api';
+          doc.area = 'ts';
         }
       });
     }

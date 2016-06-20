@@ -25,9 +25,11 @@ var DEFAULT_PACKAGES = [
  */
 function configurePackage(p) {
   // append services
-  p.factory(require('./services/transforms/errorTagTransform'))
+  p
+    .factory(require('./services/navigationMapperTitles'))
+    .factory(require('./services/transforms/errorTagTransform'))
 
-  // build navigation
+    // build navigation
     .processor(require('./processors/config'))
     .processor(require('./processors/index'))
     .processor(require('./processors/navigation'))
@@ -46,6 +48,7 @@ function configurePackage(p) {
     .config(function (generateNavigationProcessor, getInjectables) {
       generateNavigationProcessor.addMappers(getInjectables([
         require('./processors/mappers/api'),
+        require('./processors/mappers/ts'),
         require('./processors/mappers/docs'),
         require('./processors/mappers/error'),
         require('./processors/mappers/guide')
@@ -91,21 +94,19 @@ function configurePackage(p) {
       });
 
       computeIdsProcessor.idTemplates.push({
-        docTypes: ['controller'],
+        docTypes: ['controller', 'factory', 'error'],
         idTemplate: 'module:${module}.${docType}:${name}',
         getAliases: getAliases
       });
 
       computeIdsProcessor.idTemplates.push({
-        docTypes: ['error'],
-        idTemplate: 'module:${module}.${docType}:${name}',
-        getAliases: getAliases
-      });
-
-      computeIdsProcessor.idTemplates.push({
-        docTypes: ['factory'],
-        idTemplate: 'module:${module}.${docType}:${name}',
-        getAliases: getAliases
+        docTypes: ['member'],
+        idTemplate: '${classDoc.id}.${name}',
+        getAliases: function (doc) {
+          return doc.classDoc.aliases.map(function (alias) {
+            return alias + '.' + doc.name;
+          });
+        }
       });
 
       /////
@@ -119,16 +120,11 @@ function configurePackage(p) {
       });
 
       computePathsProcessor.pathTemplates.push({
-        docTypes: ['controller'],
+        docTypes: ['controller', 'factory'],
         pathTemplate: '${area}/${module}/${docType}/${name}',
         outputPathTemplate: 'partials/${area}/${module}/${docType}/${name}.html'
       });
 
-      computePathsProcessor.pathTemplates.push({
-        docTypes: ['factory'],
-        pathTemplate: '${area}/${module}/${docType}/${name}',
-        outputPathTemplate: 'partials/${area}/${module}/${docType}/${name}.html'
-      });
 
       computePathsProcessor.pathTemplates.push({
         docTypes: ['error'],
@@ -137,18 +133,12 @@ function configurePackage(p) {
       });
 
       computePathsProcessor.pathTemplates.push({
-        docTypes: ['class'],
-        getPath: function (doc) {
-          console.log(doc);
-          return doc.area + '/' + doc.module + '/' + doc.docType + '/' + doc.name;
-        },
-        outputPathTemplate: 'partials/${area}/${module}/${docType}/${name}.html'
-      });
-
-      computePathsProcessor.pathTemplates.push({
         docTypes: ['module'],
-        pathTemplate: '${area}/${name}',
-        outputPathTemplate: 'partials/${path}.html'
+        getPath: function (doc) {
+          var p = doc.ignoreInJsdoc ? '${area}/${id}' : '${area}/${name}';
+          return _.template(p)(doc);
+        },
+        outputPathTemplate: 'partials/${path}/index.html'
       });
 
       computePathsProcessor.pathTemplates.push({
@@ -159,8 +149,25 @@ function configurePackage(p) {
 
       computePathsProcessor.pathTemplates.push({
         docTypes: ['componentGroup'],
-        pathTemplate: '${area}/${moduleName}/${groupType}',
-        outputPathTemplate: 'partials/${area}/${moduleName}/${groupType}.html'
+        getPath: function (doc) {
+          var p = doc.ts ? '${area}/${moduleDoc.id}/${groupType}' : '${area}/${moduleName}/${groupType}';
+          return _.template(p)(doc);
+        },
+        outputPathTemplate: 'partials/${path}.html'
+      });
+
+      computePathsProcessor.pathTemplates.push({
+        docTypes: ['member'],
+        pathTemplate: '${classDoc.path}#${name}',
+        getOutputPath: function () {
+        }
+      });
+
+      computePathsProcessor.pathTemplates.push({
+        docTypes: ['const', 'let', 'var'],
+        pathTemplate: '${moduleDoc.path}#${name}',
+        getOutputPath: function () {
+        }
       });
     });
 

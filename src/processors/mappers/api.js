@@ -2,7 +2,7 @@
 
 var _ = require('lodash');
 
-module.exports = function navigationMapper_API(aliasMap, log) {
+module.exports = function navigationMapper_API(aliasMap, log, navigationMapperTitles) {
 
   var debug = log.debug;
 
@@ -75,7 +75,7 @@ module.exports = function navigationMapper_API(aliasMap, log) {
   });
 
   Object.defineProperty(apiMapper, 'title', {
-    value: 'API'
+    value: navigationMapperTitles.api
   });
 
   return apiMapper;

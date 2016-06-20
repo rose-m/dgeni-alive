@@ -7,5 +7,8 @@ var Package = require('dgeni').Package;
  */
 module.exports = new Package('typescript-ext', [require('dgeni-packages/typescript')])
 
-// Add in the real processors for this package
-  .processor(require('./processors/addAreaToTypescriptDocs'));
+  .factory(require('./services/combineTsDocTypes'))
+
+  // Add in the real processors for this package
+  .processor(require('./processors/addAreaToTypescriptDocs'))
+  .processor(require('./processors/generateTypescriptComponentGroups'));
