@@ -78,9 +78,7 @@ function configurePackage(p) {
       });
     })
 
-    // setting readFilesProcessor configuration
-    .config(function (computePathsProcessor, computeIdsProcessor, createDocMessage, getAliases) {
-
+    .config(function (computeIdsProcessor, getAliases) {
       computeIdsProcessor.idTemplates.push({
         docTypes: ['overview'],
         idTemplate: '${area}:${name}',
@@ -108,11 +106,9 @@ function configurePackage(p) {
           });
         }
       });
+    })
 
-      /////
-      // Template Paths
-      /////
-
+    .config(function (computePathsProcessor) {
       computePathsProcessor.pathTemplates.push({
         docTypes: ['area'],
         pathTemplate: '${area}',
@@ -124,7 +120,6 @@ function configurePackage(p) {
         pathTemplate: '${area}/${module}/${docType}/${name}',
         outputPathTemplate: 'partials/${area}/${module}/${docType}/${name}.html'
       });
-
 
       computePathsProcessor.pathTemplates.push({
         docTypes: ['error'],
