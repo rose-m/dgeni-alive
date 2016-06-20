@@ -116,12 +116,6 @@ function configurePackage(p) {
       });
 
       computePathsProcessor.pathTemplates.push({
-        docTypes: ['controller', 'factory'],
-        pathTemplate: '${area}/${module}/${docType}/${name}',
-        outputPathTemplate: 'partials/${area}/${module}/${docType}/${name}.html'
-      });
-
-      computePathsProcessor.pathTemplates.push({
         docTypes: ['error'],
         pathTemplate: '${area}/${module}/${name}',
         outputPathTemplate: 'partials/error/${module}/${name}.html'
@@ -152,6 +146,18 @@ function configurePackage(p) {
       });
 
       computePathsProcessor.pathTemplates.push({
+        docTypes: ['controller', 'factory'],
+        pathTemplate: '${area}/${module}/${docType}/${name}',
+        outputPathTemplate: 'partials/${area}/${module}/${docType}/${name}.html'
+      });
+
+      computePathsProcessor.pathTemplates.push({
+        docTypes: ['class', 'interface'],
+        pathTemplate: '${moduleDoc.path}/${docType}/${name}',
+        outputPathTemplate: 'partials/${path}.html'
+      });
+
+      computePathsProcessor.pathTemplates.push({
         docTypes: ['member'],
         pathTemplate: '${classDoc.path}#${name}',
         getOutputPath: function () {
@@ -159,7 +165,7 @@ function configurePackage(p) {
       });
 
       computePathsProcessor.pathTemplates.push({
-        docTypes: ['const', 'let', 'var'],
+        docTypes: ['const', 'let', 'var', 'function'],
         pathTemplate: '${moduleDoc.path}#${name}',
         getOutputPath: function () {
         }

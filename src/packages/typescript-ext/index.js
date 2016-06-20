@@ -11,4 +11,5 @@ module.exports = new Package('typescript-ext', [require('dgeni-packages/typescri
 
   // Add in the real processors for this package
   .processor(require('./processors/addAreaToTypescriptDocs'))
-  .processor(require('./processors/generateTypescriptComponentGroups'));
+  .processor(require('./processors/generateTypescriptComponentGroups'))
+  .processor(require('./processors/resolveMergedModuleDocs'));
