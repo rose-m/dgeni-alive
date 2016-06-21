@@ -6,8 +6,48 @@
 {%- if doc.typeParams or doc.heritage -%}
     <h2>Signature</h2>
     <p>
-        {$ doc.name | code $}{$ doc.typeParams | code $}{$ doc.heritage | code $}
+        {$ doc.name + doc.typeParams + doc.heritage | code $}
     </p>
 {%- endif %}
+
+{% if doc.members %}
+<table class="variables-matrix input-arguments">
+    <thead>
+    <tr>
+        <th>Visibility</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Details</th>
+    </tr>
+    </thead>
+    <tbody>
+    {%- for member in doc.members -%}
+    <tr>
+        <td>{$ memberAccess(member) $}</td>
+        <td>
+            {$ member.name | code $}
+            {% if member.optional %}<div><em>(optional)</em></div>{% endif %}
+        </td>
+        <td>
+            {% if member.returnType %}
+            {$ member.returnType $}
+            {% endif %}
+        </td>
+        <td>
+            {$ member.content | marked $}
+            {% if member.parameters %}
+            <h5>Parameters:</h5>
+            <ul>
+                {% for param in member.parameters %}
+                <li>{$ param $}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </td>
+    </tr>
+    {%- endfor -%}
+    </tbody>
+</table>
+{% endif %}
 
 {% endblock %}
